@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 
 const routes = require('./routes');
+const errorHandler = require('./middleware/errorHandler');
 const app = express();
 
 // Middleware
@@ -15,6 +16,10 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/api/v1", routes);
+
+
+// Error handling middleware
+app.use(errorHandler);
 // app.use("/api/jobs", jobRoutes);
 // app.use("/api/users", userRoutes);
 // app.use("/api/companies", companyRoutes);
