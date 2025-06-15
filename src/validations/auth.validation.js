@@ -27,12 +27,12 @@ const registerSchema = Joi.object({
         'any.only': 'Passwords do not match',
         'string.empty': 'Confirm Password is required',
         'any.required': 'Confirm Password is required'
-    }),
-    user_type: Joi.string().valid('job_seeker', 'employer').required().messages({
-        'any.only': 'Invalid user type. Must be "job_seeker" or "employer"',
-        'string.empty': 'User type is required',
-        'any.required': 'User type is required'
     })
+    // user_type: Joi.string().valid('job_seeker', 'employer').required().messages({
+    //     'any.only': 'Invalid user type. Must be "job_seeker" or "employer"',
+    //     'string.empty': 'User type is required',
+    //     'any.required': 'User type is required'
+    // })
 });
 
 const loginSchema = Joi.object({
@@ -47,4 +47,15 @@ const loginSchema = Joi.object({
     })
 });
 
-module.exports = { registerSchema, loginSchema };
+const checkEmailSchema = Joi.object({
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org', 'in'] } })
+        .required()
+        .messages({
+            'string.email': 'Invalid email address',
+            'string.empty': 'Email is required',
+            'any.required': 'Email is required'
+        })
+});
+
+module.exports = { registerSchema, loginSchema, checkEmailSchema };
