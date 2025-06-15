@@ -1,5 +1,14 @@
 const validate = (schema) => (req, res, next) => {
-    const { error } = schema.validate(req.body, { abortEarly: false, allowUnknown: true });
+    let data;
+    if (req.method === 'GET' && Object.keys(req.query).length) {
+        data = req.query;
+    } else if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
+        data = req.body;
+    } else {
+        data = req.params;
+    }
+    
+    const { error } = schema.validate(data, { abortEarly: false, allowUnknown: true });
     if (error) {
         const errors = error.details.map((detail) => ({
             field: detail.path.join('.'),
