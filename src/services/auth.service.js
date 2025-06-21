@@ -19,7 +19,6 @@ exports.createUser = async (userData) => {
         password: hashedPassword
     });
 
-    // Optionally generate a token immediately after signup
     const token = generateToken({ id: newUser.id, email: newUser.email, userType: newUser.user_type });
 
     return { user: newUser, token };
@@ -33,7 +32,7 @@ exports.doLogin = async (credentials) => {
         throw new AppError('Invalid email or password', 401, 'INVALID_CREDENTIALS');
     }
 
-    // Assuming you have a method to verify the password
+    // Verify the password
     const isPasswordValid = verifyPassword(password, user.password);
     if (!isPasswordValid) {
         throw new AppError('Invalid email or password', 401, 'INVALID_CREDENTIALS');
