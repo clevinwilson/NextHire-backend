@@ -5,9 +5,7 @@ exports.createCompanyHandler = async (req, res, next) => {
         if (!req.user || !req.user.id) {
             return res.status(401).json({ success: false, message: 'Unauthorized' });
         }
-        const admin = req.user.id;
-
-        const newCompany = await createCompany(req.body, admin);
+        const newCompany = await createCompany(req.body, req.user.id);
 
         if (!newCompany) {
             return res.status(400).json({ success: false, message: 'Error creating company' });

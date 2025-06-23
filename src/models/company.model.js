@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
-const Company = sequelize.define('Company', {
+const Companies = sequelize.define('Companies', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -24,4 +24,4 @@ const Company = sequelize.define('Company', {
     updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 });
 
-module.exports = Company;
+module.exports = Companies;
