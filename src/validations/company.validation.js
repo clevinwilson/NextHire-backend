@@ -14,4 +14,11 @@ const companySchema = Joi.object({
     location: Joi.string().trim().max(100).optional()
 });
 
-module.exports = { companySchema };
+const companyListQuerySchema = Joi.object({
+    page: Joi.number().integer().min(1).default(1),
+    limit: Joi.number().integer().min(1).max(100).default(10),
+    industry: Joi.string().optional(),
+    location: Joi.string().optional()
+});
+
+module.exports = { companySchema, companyListQuerySchema };
