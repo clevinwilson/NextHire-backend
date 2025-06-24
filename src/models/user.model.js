@@ -26,7 +26,13 @@ const User = sequelize.define('User', {
     role: {
         type: DataTypes.ENUM('job_seeker', 'recruiter', 'admin'),
         defaultValue: 'job_seeker'
-    }
+    },
+    companyId: { 
+        type: DataTypes.INTEGER, 
+        allowNull: true, 
+        references: { model: 'Companies', key: 'id' }, 
+        onDelete: 'CASCADE' 
+    },
 });
 
 module.exports = User;
