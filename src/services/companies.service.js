@@ -20,3 +20,19 @@ exports.createCompany = async (data, userId) => {
     }
     return newCompany;
 };
+
+exports.findAndCountAll = async (pagination, filters) => {
+    const { limit, offset } = pagination;
+    const { industry, location } = filters;
+    const where = {};
+
+    if (industry) where.industry = { [Op.iLike]: `%${industry}%` };
+    if (location) where.location = { [Op.iLike]: `%${location}%` };
+
+    return await Companies.findAndCountAll({
+        where,
+        limit,
+        offset,
+        order: [['createdAt', 'DESC']]
+    });
+};
